@@ -1,0 +1,22 @@
+<body>
+  <header>
+    <h1>Sales Importer</h1>
+    <nav>
+      <%= link_to 'Novo Upload', new_sale_path %> |
+      <%= link_to 'Ver Vendas', sales_path %>
+    </nav>
+  </header>
+
+  <% flash.each do |key, message| %>
+    <div class="flash <%= key %>"><%= message %></div>
+  <% end %>
+
+  <main>
+    <%= yield %>
+  </main>
+
+  <footer>
+    <p>&copy; <%= Time.now.year %> Sales Importer</p>
+  </footer>
+</body>
+

@@ -1,0 +1,2 @@
+class UploadHistory < ApplicationRecord
+end

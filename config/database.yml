@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: jeferson
+  password: lionnees14
+
+development:
+  <<: *default
+  database: sales_importer_development
+
+test:
+  <<: *default
+  database: sales_importer_test
+
+production:
+  <<: *default
+  database: sales_importer_production
+  username: sales_importer
+  password: <%= ENV['SALES_IMPORTER_DATABASE_PASSWORD'] %>

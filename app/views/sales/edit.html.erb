@@ -1,0 +1,50 @@
+<h1>Editar Venda</h1>
+
+<%= form_with(model: @sale, local: true) do |form| %>
+  <% if @sale.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sale.errors.count, "error") %> proibiu esta venda de ser salva:</h2>
+      <ul>
+        <% @sale.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :purchaser_name %>
+    <%= form.text_field :purchaser_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :item_description %>
+    <%= form.text_field :item_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :item_price %>
+    <%= form.number_field :item_price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :purchase_count %>
+    <%= form.number_field :purchase_count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :merchant_address %>
+    <%= form.text_field :merchant_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :merchant_name %>
+    <%= form.text_field :merchant_name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Voltar', sales_path %>
