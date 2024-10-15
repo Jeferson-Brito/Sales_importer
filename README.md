@@ -37,8 +37,8 @@ Após iniciar o servidor, acesse a aplicação através do seu navegador em [htt
 Contribuições são sempre bem-vindas! Sinta-se à vontade para abrir uma issue ou um pull request.
 
 ## 📞 Contato
-Para dúvidas ou mais informações, entre em contato com **Jeferson Brito**:
-- **Email**: [seu-email@example.com](mailto:jeffersonbrito2455@gmail.com)
+Para dúvidas ou mais informações, entre em contato:
+- **Email**: [jeferson@grupohi.com.br](mailto:jeferson@grupohi.com.br)
 - **GitHub**: [Jeferson-Brito](https://github.com/Jeferson-Brito)
 
 ---
