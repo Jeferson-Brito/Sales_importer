@@ -1,7 +1,7 @@
 # 🚀 ImportMaster
 
 ## 📋 Descrição do Projeto
-O **ImportMaster** é uma aplicação inovadora que permite a **importação de dados** a partir de arquivos de texto `.txt` ou `.tab` separados por tabulação. O projeto analisa e organiza esses dados, armazenando-os em um banco de dados relacional. Além disso, você pode **exportar** os dados para uma planilha Excel nos formatos **CSV** ou **XLSX**.
+O **ImportMaster** é uma aplicação que permite a **importação de dados** a partir de arquivos de texto `.txt` ou `.tab` separados por tabulação. O projeto analisa e organiza esses dados, armazenando-os em um banco de dados relacional. Além disso, você pode **exportar** os dados para uma planilha Excel nos formatos **CSV** ou **XLSX**.
 
 ## ⚙️ Como Configurar
 
