@@ -9,3 +9,6 @@ Este projeto permite importar dados de vendas de um arquivo de texto separado po
 3. Instale as dependências com:
    ```bash
    bundle install
+4. Iniciar o servidor da aplicação:
+   ```bash
+   rails server
