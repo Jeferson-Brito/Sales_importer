@@ -30,6 +30,7 @@ Após iniciar o servidor, acesse a aplicação através do seu navegador em [htt
 
 ## 📄 Tecnologias Utilizadas
 - **Ruby on Rails**: Framework utilizado para desenvolver a aplicação.
+- **Bootstrap**: Utilizado para estilizar a interface e garantir responsividade.
 - **PostgreSQL**: Banco de dados relacional para armazenar os dados importados.
 - **CSV/XLSX**: Formatos para exportação dos dados.
 
