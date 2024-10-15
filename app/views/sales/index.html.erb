@@ -1,36 +1,97 @@
 <div class="container">
-  <h1 class="text-center my-4">Lista de Vendas</h1>
+  <div class="text-center my-4">
+    <%= button_tag 'Exportar', class: 'btn btn-primary', data: { toggle: 'modal', target: '#exportModal' } %>
+  </div>
 
-  <table class="table table-striped table-bordered">
-    <thead class="thead-dark">
-      <tr>
-        <th>Nome do Comprador</th>
-        <th>Descrição do Item</th>
-        <th>Preço do Item</th>
-        <th>Quantidade Comprada</th>
-        <th>Endereço do Comerciante</th>
-        <th>Nome do Comerciante</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @sales.each do |sale| %>
+  <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+    <table class="table table-striped table-bordered">
+      <thead class="thead-dark">
         <tr>
-          <td><%= sale.purchaser_name %></td>
-          <td><%= sale.item_description %></td>
-          <td><%= number_to_currency(sale.item_price) %></td>
-          <td><%= sale.purchase_count %></td>
-          <td><%= sale.merchant_address %></td>
-          <td><%= sale.merchant_name %></td>
-          <td>
-            <%= link_to 'Editar', edit_sale_path(sale), class: "btn btn-warning" %>
-          </td>
+          <th>Nome do Comprador</th>
+          <th>Descrição do Item</th>
+          <th>Preço do Item</th>
+          <th>Quantidade Comprada</th>
+          <th>Endereço do Comerciante</th>
+          <th>Nome do Comerciante</th>
+          <th class="sticky-column">Ações</th> <!-- Ação com classe para fixar -->
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @sales.each do |sale| %>
+          <tr>
+            <td><%= sale.purchaser_name %></td>
+            <td><%= sale.item_description %></td>
+            <td><%= number_to_currency(sale.item_price) %></td>
+            <td><%= sale.purchase_count %></td>
+            <td><%= sale.merchant_address %></td>
+            <td><%= sale.merchant_name %></td>
+            <td class="sticky-column">
+              <%= link_to 'Editar', edit_sale_path(sale), class: "btn btn-warning btn-sm" %> <!-- Botão pequeno para melhor responsividade -->
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
-  <p class="text-center">Total Renda Bruta: <%= number_to_currency(@total_income) %></p>
+  <p class="text-center font-weight-bold text-success">Total: <%= number_to_currency(@total_income) %></p>
 
-  <%= button_to 'Excluir Todas as Vendas', destroy_all_sales_path, method: :delete, data: { confirm: 'Tem certeza que deseja excluir todas as vendas?' }, class: "btn btn-danger mx-auto d-block" %>
+
+  <%= button_to 'Excluir Tabela', destroy_all_sales_path, method: :delete, data: { confirm: 'Tem certeza que deseja excluir todas as vendas?' }, class: "btn btn-danger mx-auto d-block" %>
+
+  <!-- Modal para Exportar -->
+  <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exportModalLabel">Exportar Vendas</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="<%= export_sales_path %>" method="get">
+            <div class="form-group">
+              <label for="format">Escolha o formato:</label>
+              <select name="format" id="format" class="form-control">
+                <option value="csv">CSV</option>
+                <option value="xlsx">XLSX</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Exportar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<style>
+  .table-responsive {
+    position: relative;
+    max-height: 400px; /* Define a altura máxima da tabela, ajuste conforme necessário */
+    overflow-y: auto; /* Adiciona a barra de rolagem vertical quando o conteúdo ultrapassa a altura máxima */
+  }
+
+  /* Fixa o cabeçalho */
+  th {
+    position: sticky; 
+    top: 0; 
+    background-color: #343a40; 
+    color: white; 
+    z-index: 10; /* Para que o cabeçalho fique acima do conteúdo */
+  }
+
+  /* Fixa a coluna de ações */
+  .sticky-column {
+    position: sticky; 
+    right: 0; 
+    background-color: white; 
+    z-index: 9; /* Para que a coluna de ações fique acima do conteúdo */
+  }
+
+  /* Para garantir que o fundo da coluna de ações fique visível */
+  td.sticky-column {
+    background-color: white; /* Cor do fundo para a coluna de ações */
+  }
+</style>

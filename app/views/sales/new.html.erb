@@ -1,18 +1,50 @@
-<h1>Upload de Vendas</h1>
+<div class="container-fluid"> <!-- Troquei para container-fluid para aumentar a largura -->
+  <div class="row justify-content-center">
+    <div class="col-lg-10 col-md-10 col-sm-12"> <!-- Aumentei a largura das colunas -->
+      <div class="card">
+        <div class="card-body">
+          <!-- Carrossel de imagens -->
+          <div id="imageCarousel" class="carousel slide mb-4" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="/txt.png" class="d-block w-100 img-fluid" alt="Imagem de exemplo" style="max-height: 280px;">
+              </div>
+              <div class="carousel-item">
+                <img src="/CSV.png" class="d-block w-100 img-fluid" alt="Imagem de exemplo" style="max-height: 280px;">
+              </div>
+              <div class="carousel-item">
+                <img src="/gratis.png" class="d-block w-100 img-fluid" alt="Imagem de exemplo" style="max-height: 280px;">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Anterior</span>
+            </a>
+            <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Próximo</span>
+            </a>
+          </div>
 
-<%= form_with(url: sales_path, local: true, multipart: true) do |form| %>
-  <div>
-    <%= form.label :file, "Escolha um arquivo" %>
-    <%= form.file_field :file %>
-  </div>
-  <div>
-    <%= form.submit "Enviar" %>
-  </div>
-<% end %>
+          <%= form_with(url: sales_path, local: true, multipart: true) do |form| %>
+            <div class="form-group">
+              <%= form.label :file, "Arquivo .txt ou .tab" %>
+              <%= form.file_field :file, class: 'form-control', id: 'fileUpload', accept: '.txt' %>
+              <div id="file-name" class="mt-2"></div>
+            </div>
+            <div id="drop-area" class="border border-primary text-center p-4 my-3" 
+                 ondrop="dropHandler(event)" 
+                 ondragover="dragOverHandler(event)" 
+                 onclick="clickHandler()">
+              <p>Arraste e solte o arquivo aqui ou clique para selecionar</p>
+            </div>
 
-<% if flash[:alert] %>
-  <p style="color:red;"><%= flash[:alert] %></p>
-<% end %>
-<% if flash[:notice] %>
-  <p style="color:green;"><%= flash[:notice] %></p>
-<% end %>
+            <div class="text-center">
+              <%= form.submit "Fazer Upload", class: 'btn btn-primary' %>
+            </div>
+          <% end % %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

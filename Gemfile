@@ -25,6 +25,11 @@ gem "jbuilder"
 gem 'roo'
 gem 'react-rails'
 
+gem 'axlsx'
+gem 'csv'
+
+gem 'webpacker', '~> 5.0'
+
 gem 'bootstrap', '~> 5.3'
 gem 'sassc-rails'
 

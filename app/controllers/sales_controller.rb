@@ -1,3 +1,7 @@
+require 'csv'
+require 'axlsx'
+require 'stringio'
+
 class SalesController < ApplicationController
   def new
     @sale = Sale.new
@@ -18,7 +22,7 @@ class SalesController < ApplicationController
 
         # Extrair o valor numérico da descrição, se houver
         extracted_price = item_description.scan(/[\d,]+/).first
-        extracted_price = extracted_price.tr(',', '.').to_f if extracted_price # converte para float, substitui vírgula por ponto
+        extracted_price = extracted_price.tr(',', '.').to_f if extracted_price # Converte para float e substitui vírgula por ponto
 
         # Converte item_price para float e verifica se já foi fornecido
         item_price = item_price.to_f
@@ -31,7 +35,7 @@ class SalesController < ApplicationController
 
         # Debug: Imprimir os dados que estão sendo enviados
         puts "Creating Sale: #{purchaser_name}, #{item_description}, #{item_price}, #{purchase_count}, #{merchant_address}, #{merchant_name}"
-        
+
         # Use create! para verificar se há erros
         begin
           Sale.create!(
@@ -50,7 +54,7 @@ class SalesController < ApplicationController
         end
       end
 
-      flash[:notice] = "Upload feito com sucesso! Renda Bruta Total: #{total_income}"
+      flash[:notice] = "Upload feito com sucesso!"
       redirect_to sales_path
     else
       redirect_to new_sale_path, alert: "Por favor, envie um arquivo."
@@ -86,9 +90,45 @@ class SalesController < ApplicationController
     redirect_to sales_path, notice: 'Todas as vendas foram excluídas com sucesso.'
   end
 
+  def export
+    @sales = Sale.all
+    respond_to do |format|
+      format.csv { send_data to_csv(@sales), filename: "vendas-#{Date.today}.csv" }
+      format.xlsx do
+        io = StringIO.new
+        to_xlsx(@sales, io)
+        io.rewind
+        send_data io.string, filename: "vendas-#{Date.today}.xlsx", type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      end
+    end
+  end
+
   private
 
   def sale_params
     params.require(:sale).permit(:purchaser_name, :item_description, :item_price, :purchase_count, :merchant_address, :merchant_name)
+  end
+
+  def to_csv(sales)
+    CSV.generate(col_sep: ";", headers: true) do |csv|
+      csv << ["Nome do Comprador", "Descrição do Item", "Preço do Item", "Quantidade Comprada", "Endereço do Comerciante", "Nome do Comerciante"]
+      
+      sales.each do |sale|
+        csv << [sale.purchaser_name, sale.item_description, sale.item_price, sale.purchase_count, sale.merchant_address, sale.merchant_name]
+      end
+    end
+  end
+
+  def to_xlsx(sales, io)
+    package = Axlsx::Package.new
+    package.workbook.add_worksheet(name: "Vendas") do |sheet|
+      sheet.add_row ["Nome do Comprador", "Descrição do Item", "Preço do Item", "Quantidade Comprada", "Endereço do Comerciante", "Nome do Comerciante"]
+      
+      sales.each do |sale|
+        sheet.add_row [sale.purchaser_name, sale.item_description, sale.item_price, sale.purchase_count, sale.merchant_address, sale.merchant_name]
+      end
+    end
+
+    io.write package.to_stream.read
   end
 end

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :sales do
     collection do
       delete :destroy_all
-      get :export
+      get :export, to: 'sales#export'
     end
   end
   

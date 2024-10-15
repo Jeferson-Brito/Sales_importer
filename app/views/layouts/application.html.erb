@@ -1,37 +1,70 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Sales Importer</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Seu App</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-  <body class="bg-light">
-    <header class="bg-primary text-white p-3 mb-4">
-      <div class="container">
-        <h1>Sales Importer</h1>
-        <nav>
-          <%= link_to 'Novo Upload', new_sale_path, class: "text-white" %> |
-          <%= link_to 'Ver Vendas', sales_path, class: "text-white" %>
-        </nav>
-      </div>
-    </header>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+  <!-- Importmap para gerenciar scripts -->
+  <%= javascript_importmap_tags %>
+</head>
 
+<body class="bg-light">
+  <header class="bg-primary text-white p-4 mb-4 sticky-top">
     <div class="container">
-      <% flash.each do |key, message| %>
-        <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %>"><%= message %></div>
-      <% end %>
-
-      <main>
-        <%= yield %>
-      </main>
-
-      <footer class="mt-4 text-center">
-        <p>&copy; <%= Time.now.year %> Sales Importer</p>
-      </footer>
+      <h1 class="display-4">ImportMaster</h1>
+      <nav>
+        <%= link_to 'Novo Upload', new_sale_path, class: 'btn btn-light me-2' %>
+        <%= link_to 'Ver Vendas', sales_path, class: 'btn btn-outline-light' %>
+      </nav>
     </div>
-  </body>
+  </header>
+
+  <div class="container">
+    <main>
+      <%= yield %>
+    </main>
+
+    <footer class="mt-4 text-center">
+      <p>&copy; <%= Time.now.year %> ImportMaster - Jeferson B.</p>
+    </footer>
+  </div>
+
+  <% flash.each do |key, message| %>
+    <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %> position-fixed bottom-0 end-0 m-3 fade" style="z-index: 1050;">
+      <%= message %>
+    </div>
+  <% end %>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const alerts = document.querySelectorAll('.alert');
+      alerts.forEach(alert => {
+        // Adiciona a classe 'show' para a animação de entrada
+        alert.classList.add('show');
+        
+        // Tempo que o alerta fica visível
+        const displayTime = 5000; // 5 segundos
+        const fadeOutTime = 500; // 0.5 segundos para a animação de saída
+        
+        setTimeout(() => {
+          alert.classList.remove('show'); // Remove a classe para iniciar a animação de saída
+          setTimeout(() => {
+            alert.style.display = 'none'; // Remove o alerta após a animação de saída
+          }, fadeOutTime); // Tempo da animação de saída
+        }, displayTime); // Tempo que o alerta fica visível
+      });
+    });
+  </script>
+
+  <!-- jQuery e Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>
