@@ -1,9 +1,9 @@
-<h1>Editar Venda</h1>
+<h1 class="text-center mb-4">Editar Venda</h1>
 
-<%= form_with(model: @sale, local: true) do |form| %>
+<%= form_with(model: @sale, local: true, html: { class: "form" }) do |form| %>
   <% if @sale.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sale.errors.count, "error") %> proibiu esta venda de ser salva:</h2>
+    <div class="alert alert-danger" role="alert">
+      <h2><%= pluralize(@sale.errors.count, "erro") %> proibiu esta venda de ser salva:</h2>
       <ul>
         <% @sale.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -12,39 +12,41 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :purchaser_name %>
-    <%= form.text_field :purchaser_name %>
+  <div class="form-group mb-3">
+    <%= form.label :purchaser_name, class: "form-label" %>
+    <%= form.text_field :purchaser_name, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :item_description %>
-    <%= form.text_field :item_description %>
+  <div class="form-group mb-3">
+    <%= form.label :item_description, class: "form-label" %>
+    <%= form.text_field :item_description, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :item_price %>
-    <%= form.number_field :item_price %>
+  <div class="form-group mb-3">
+    <%= form.label :item_price, class: "form-label" %>
+    <%= form.number_field :item_price, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :purchase_count %>
-    <%= form.number_field :purchase_count %>
+  <div class="form-group mb-3">
+    <%= form.label :purchase_count, class: "form-label" %>
+    <%= form.number_field :purchase_count, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :merchant_address %>
-    <%= form.text_field :merchant_address %>
+  <div class="form-group mb-3">
+    <%= form.label :merchant_address, class: "form-label" %>
+    <%= form.text_field :merchant_address, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :merchant_name %>
-    <%= form.text_field :merchant_name %>
+  <div class="form-group mb-3">
+    <%= form.label :merchant_name, class: "form-label" %>
+    <%= form.text_field :merchant_name, class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="text-center">
+    <%= form.submit "Atualizar Venda", class: "btn btn-primary" %>
   </div>
 <% end %>
 
-<%= link_to 'Voltar', sales_path %>
+<div class="text-center mt-4">
+  <%= link_to 'Voltar', sales_path, class: 'btn btn-secondary' %>
+</div>

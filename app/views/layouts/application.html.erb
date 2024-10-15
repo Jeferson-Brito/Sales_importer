@@ -1,22 +1,37 @@
-<body>
-  <header>
-    <h1>Sales Importer</h1>
-    <nav>
-      <%= link_to 'Novo Upload', new_sale_path %> |
-      <%= link_to 'Ver Vendas', sales_path %>
-    </nav>
-  </header>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sales Importer</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <% flash.each do |key, message| %>
-    <div class="flash <%= key %>"><%= message %></div>
-  <% end %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
 
-  <main>
-    <%= yield %>
-  </main>
+  <body class="bg-light">
+    <header class="bg-primary text-white p-3 mb-4">
+      <div class="container">
+        <h1>Sales Importer</h1>
+        <nav>
+          <%= link_to 'Novo Upload', new_sale_path, class: "text-white" %> |
+          <%= link_to 'Ver Vendas', sales_path, class: "text-white" %>
+        </nav>
+      </div>
+    </header>
 
-  <footer>
-    <p>&copy; <%= Time.now.year %> Sales Importer</p>
-  </footer>
-</body>
+    <div class="container">
+      <% flash.each do |key, message| %>
+        <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %>"><%= message %></div>
+      <% end %>
 
+      <main>
+        <%= yield %>
+      </main>
+
+      <footer class="mt-4 text-center">
+        <p>&copy; <%= Time.now.year %> Sales Importer</p>
+      </footer>
+    </div>
+  </body>
+</html>
